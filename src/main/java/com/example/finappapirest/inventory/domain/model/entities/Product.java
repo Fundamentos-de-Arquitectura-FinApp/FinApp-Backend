@@ -1,9 +1,7 @@
 package com.example.finappapirest.inventory.domain.model.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.finappapirest.finances.domain.model.aggregates.Store;
+import jakarta.persistence.*;
 
 @Entity
 public class Product {
@@ -11,6 +9,9 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String description;
     private String isActive;
     private Float price;
+    @ManyToOne()
+    private Store store;
 }
