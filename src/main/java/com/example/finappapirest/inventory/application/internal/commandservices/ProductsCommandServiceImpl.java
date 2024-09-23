@@ -9,8 +9,10 @@ import com.example.finappapirest.inventory.domain.services.commands.ProductsComm
 import com.example.finappapirest.inventory.domain.services.queries.ProductsQueryService;
 import com.example.finappapirest.inventory.infraestructure.persistence.jpa.repositories.ProductsRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
+@Service
 public class ProductsCommandServiceImpl implements ProductsCommandService {
     private final ProductsRepository productsRepository;
     private final ProductsQueryService productsQueryService;
@@ -20,6 +22,8 @@ public class ProductsCommandServiceImpl implements ProductsCommandService {
         Product product = Product.builder()
                 .name(command.name())
                 .description(command.description())
+                .price(command.price())
+                .imageUrl(command.imageUrl())
                 .isActive(true)
                 .storeId(command.storeId())
                 .build();
@@ -34,6 +38,7 @@ public class ProductsCommandServiceImpl implements ProductsCommandService {
         product.setName(command.name());
         product.setDescription(command.description());
         product.setPrice(command.price());
+        product.setImageUrl(command.imageUrl());
         this.productsRepository.save(product);
         return product;
     }

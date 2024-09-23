@@ -1,12 +1,14 @@
 package com.example.finappapirest.orders.domain.model.aggregates;
 
 import com.example.finappapirest.shared.domain.model.entities.AuditableModel;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "customer_order")
 public class Order extends AuditableModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -21,4 +21,5 @@ public class Product {
     private Boolean isActive;
     private Float price;
     private Long storeId;
+    private String imageUrl;
 }

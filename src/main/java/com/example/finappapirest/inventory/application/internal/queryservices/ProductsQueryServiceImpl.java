@@ -7,10 +7,12 @@ import com.example.finappapirest.inventory.domain.services.queries.ProductsQuery
 import com.example.finappapirest.inventory.infraestructure.persistence.jpa.repositories.ProductsRepository;
 import com.example.finappapirest.shared.domain.model.exceptions.BadRequestException;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @AllArgsConstructor
+@Service
 public class ProductsQueryServiceImpl implements ProductsQueryService {
     private final ProductsRepository productsRepository;
 

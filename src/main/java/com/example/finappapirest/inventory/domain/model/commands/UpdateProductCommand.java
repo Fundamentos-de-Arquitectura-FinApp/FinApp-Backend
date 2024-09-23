@@ -5,6 +5,7 @@ public record UpdateProductCommand(
         String name,
         String description,
         Float price,
+        String imageUrl,
         Long storeId
 ) {
 }
