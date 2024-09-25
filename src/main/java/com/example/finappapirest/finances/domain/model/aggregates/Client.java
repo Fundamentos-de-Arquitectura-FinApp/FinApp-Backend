@@ -18,5 +18,9 @@ public class Client extends AuditableModel {
 
     @ManyToOne
     private Store store;
+
+    @OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
+    private Account account;
+
     private Long userId;
 }

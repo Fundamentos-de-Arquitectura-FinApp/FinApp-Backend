@@ -10,16 +10,13 @@ import com.example.finappapirest.inventory.interfaces.rest.resources.request.Upd
 import com.example.finappapirest.inventory.interfaces.rest.resources.response.ProductResponse;
 import com.example.finappapirest.inventory.interfaces.rest.transform.ProductCommandFromResource;
 import com.example.finappapirest.inventory.interfaces.rest.transform.ProductResourceFromEntity;
-import com.example.finappapirest.security.domain.model.aggregates.User;
-import com.example.finappapirest.security.infrastructure.authorization.sfs.model.UserDetailsImpl;
 import com.example.finappapirest.shared.interfaces.utils.UserUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +29,7 @@ public class ProductsController {
     private final ProductsCommandService productsCommandService;
     private final ProductsQueryService productsQueryService;
 
+    @Secured({"ROLE_STORE"})
     @GetMapping("/store")
     @Operation(summary = "Get all products by store")
     public ResponseEntity<List<ProductResponse>> getProductsByStore(){

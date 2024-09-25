@@ -27,7 +27,7 @@ public class Role {
     }
 
     public static Role getDefaultRole() {
-        return new Role(Roles.ROLE_USER);
+        return new Role(Roles.ROLE_STORE);
     }
 
     public String getStringName() {
