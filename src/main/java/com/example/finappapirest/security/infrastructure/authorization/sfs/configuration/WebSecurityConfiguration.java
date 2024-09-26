@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,6 +26,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(securedEnabled = true)
 public class WebSecurityConfiguration {
     private final UserDetailsService userDetailsService;
     private final BearerTokenService tokenService;
@@ -88,7 +90,7 @@ public class WebSecurityConfiguration {
                 .cors(corsConfigurer -> corsConfigurer
                         .configurationSource(request -> {
                             var cors = new CorsConfiguration();
-                            cors.setAllowedOrigins(java.util.List.of("https://arquimentor-7e645.firebaseapp.com"));
+                            cors.setAllowedOrigins(java.util.List.of("*"));
                             cors.setAllowedMethods(java.util.List.of("*"));
                             cors.setAllowedHeaders(java.util.List.of("*"));
                             cors.setAllowCredentials(true);
@@ -100,11 +102,8 @@ public class WebSecurityConfiguration {
                 .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers(
-                                "/api/v1/students",
-                                "/api/v1/students/**",
-                                "/api/v1/studentprofiles",
-                                "/api/v1/studentprofiles/**",
                                 "/api/v1/authentication/**",
+                                "/api/v1/roles/**",
                                 "/api/v1/crops/**",
                                 "/v3/api-docs/**",
                                 "/swagger-ui.html",

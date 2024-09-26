@@ -1,7 +1,9 @@
 package com.example.finappapirest.security.domain.model.valueobjects;
 
+import lombok.Data;
+
 public enum Roles {
-    ROLE_USER,
     ROLE_ADMIN,
-    ROLE_MENTOR
+    ROLE_STORE,
+    ROLE_CLIENT,
 }
