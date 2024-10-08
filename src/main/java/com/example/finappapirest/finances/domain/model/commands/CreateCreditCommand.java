@@ -1,4 +1,4 @@
 package com.example.finappapirest.finances.domain.model.commands;
 
-public record CreateClient() {
+public record CreateCreditCommand() {
 }

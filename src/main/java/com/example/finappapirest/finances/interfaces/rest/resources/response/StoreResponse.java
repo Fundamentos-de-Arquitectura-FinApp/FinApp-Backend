@@ -1,6 +1,6 @@
-package com.example.finappapirest.finances.domain.model.commands;
+package com.example.finappapirest.finances.interfaces.rest.resources.response;
 
-public record UpdateStoreCommand(
+public record StoreResponse(
         Long id,
         String ruc,
         String name,

@@ -1,4 +1,4 @@
 package com.example.finappapirest.finances.domain.model.queries;
 
-public record GetStoreById() {
+public record GetStoreByIdQuery(Long storeId) {
 }
