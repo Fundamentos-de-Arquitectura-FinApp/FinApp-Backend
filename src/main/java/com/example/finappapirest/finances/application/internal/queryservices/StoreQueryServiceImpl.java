@@ -6,6 +6,7 @@ import com.example.finappapirest.finances.domain.model.queries.GetStoreByIdQuery
 import com.example.finappapirest.finances.domain.model.queries.GetStoreByUserIdQuery;
 import com.example.finappapirest.finances.domain.services.StoreQueryService;
 import com.example.finappapirest.finances.infraestructure.persistence.jpa.repositories.StoreRepository;
+import com.example.finappapirest.shared.domain.model.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,12 +26,12 @@ public class StoreQueryServiceImpl implements StoreQueryService {
 
     @Override
     public Store handle(GetStoreByUserIdQuery query) {
-        return storeRepository.findByUserId(query.userId()).orElseThrow(()->new RuntimeException("Store not found"));
+        return storeRepository.findByUserId(query.userId()).orElseThrow(()->new NotFoundException("Store not found"));
     }
 
     @Override
     public Store handle(GetStoreByIdQuery query) {
-        return storeRepository.findById(query.storeId()).orElseThrow(()->new RuntimeException("Store not found"));
+        return storeRepository.findById(query.storeId()).orElseThrow(()->new NotFoundException("Store not found"));
 
     }
 }

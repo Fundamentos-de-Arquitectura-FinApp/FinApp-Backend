@@ -4,6 +4,7 @@ import com.example.finappapirest.security.domain.model.queries.GetAllRolesQuery;
 import com.example.finappapirest.security.domain.services.RoleQueryService;
 import com.example.finappapirest.security.interfaces.rest.resources.RoleResource;
 import com.example.finappapirest.security.interfaces.rest.transform.RoleResourceFromEntityAssembler;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,7 @@ public class RolesController {
     }
 
     @GetMapping
+    @Operation(summary = "Get all roles", description = "Get all roles")
     public ResponseEntity<List<RoleResource>> getAllRoles() {
         var getAllRolesQuery = new GetAllRolesQuery();
         var roles = roleQueryService.handle(getAllRolesQuery);

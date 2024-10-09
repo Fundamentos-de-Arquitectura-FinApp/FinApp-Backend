@@ -10,6 +10,8 @@ import com.example.finappapirest.security.domain.model.commands.SignUpCommand;
 import com.example.finappapirest.security.domain.services.UserCommandService;
 import com.example.finappapirest.security.infrastructure.persistence.jpa.repositories.RoleRepository;
 import com.example.finappapirest.security.infrastructure.persistence.jpa.repositories.UserRepository;
+import com.example.finappapirest.shared.domain.model.exceptions.BadRequestException;
+import com.example.finappapirest.shared.domain.model.exceptions.NotFoundException;
 import com.example.finappapirest.shared.interfaces.utils.UserUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.springframework.stereotype.Service;
@@ -33,9 +35,9 @@ public class UserCommandServiceImpl implements UserCommandService {
 
     @Override
     public Optional<User> handle(SignUpCommand command) {
-        if (userRepository.existsByUsername(command.username())) throw new RuntimeException("Username already exists");
+        if (userRepository.existsByUsername(command.username())) throw new BadRequestException("Username already exists");
         var roles = command.roles().stream().map(role -> roleRepository.findByName(role.getName())
-                .orElseThrow(() -> new RuntimeException("Role name not found"))).toList();
+                .orElseThrow(() -> new NotFoundException("Role name not found"))).toList();
         var user = new User(command.username(), hashingService.encode(command.password()), roles);
         userRepository.save(user);
         return userRepository.findByUsername(command.username());
@@ -44,9 +46,12 @@ public class UserCommandServiceImpl implements UserCommandService {
     @Override
     public Optional<ImmutablePair<User, String>> handle(SignInCommand command) {
         var user = userRepository.findByUsername(command.username());
-        if (user.isEmpty()) throw new RuntimeException("User not found");
+
+        if (user.isEmpty()) throw new NotFoundException("User not found");
+
         if (!hashingService.matches(command.password(), user.get().getPassword()))
-            throw new RuntimeException("Invalid password");
+            throw new BadRequestException("Old password is incorrect");
+
         var token = tokenService.generateToken(user.get().getUsername());
         return Optional.of(ImmutablePair.of(user.get(), token));
     }
@@ -54,7 +59,7 @@ public class UserCommandServiceImpl implements UserCommandService {
     @Override
     public User handle(ChangeEmailCommand command) {
         var userId = UserUtils.getCurrentUserId();
-        var user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        var user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
         user.setUsername(command.email());
         userRepository.save(user);
         return user;
@@ -63,13 +68,13 @@ public class UserCommandServiceImpl implements UserCommandService {
     @Override
     public User handle(ChangePasswordCommand command) {
         var userId = UserUtils.getCurrentUserId();
-        var user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        var user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
 
         if(!command.oldPassword().equals(command.repeatOldPassword()))
-            throw new RuntimeException("Passwords do not match");
+            throw new BadRequestException("Passwords do not match");
 
         if(!hashingService.matches(command.oldPassword(), user.getPassword()))
-            throw new RuntimeException("Invalid password");
+            throw new BadRequestException("Invalid password");
 
         user.setPassword(hashingService.encode(command.newPassword()));
         userRepository.save(user);
