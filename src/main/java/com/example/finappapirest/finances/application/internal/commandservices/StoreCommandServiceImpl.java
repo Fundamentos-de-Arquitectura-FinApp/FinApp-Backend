@@ -1,9 +1,9 @@
 package com.example.finappapirest.finances.application.internal.commandservices;
 
 import com.example.finappapirest.finances.domain.model.aggregates.Store;
-import com.example.finappapirest.finances.domain.model.commands.CreateStoreCommand;
-import com.example.finappapirest.finances.domain.model.commands.UpdateStoreCommand;
-import com.example.finappapirest.finances.domain.model.queries.GetStoreByUserIdQuery;
+import com.example.finappapirest.finances.domain.model.commands.store.CreateStoreCommand;
+import com.example.finappapirest.finances.domain.model.commands.store.UpdateStoreCommand;
+import com.example.finappapirest.finances.domain.model.queries.store.GetStoreByUserIdQuery;
 import com.example.finappapirest.finances.domain.services.StoreCommandService;
 import com.example.finappapirest.finances.domain.services.StoreQueryService;
 import com.example.finappapirest.finances.infraestructure.persistence.jpa.repositories.StoreRepository;

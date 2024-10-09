@@ -29,4 +29,8 @@ public class Store extends AuditableModel {
 
     private Long userId;
 
+    public void addClient(Client client) {
+        this.clients.add(client);
+    }
+
 }

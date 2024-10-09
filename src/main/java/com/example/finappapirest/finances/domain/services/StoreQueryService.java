@@ -1,9 +1,9 @@
 package com.example.finappapirest.finances.domain.services;
 
 import com.example.finappapirest.finances.domain.model.aggregates.Store;
-import com.example.finappapirest.finances.domain.model.queries.GetAllStoresQuery;
-import com.example.finappapirest.finances.domain.model.queries.GetStoreByIdQuery;
-import com.example.finappapirest.finances.domain.model.queries.GetStoreByUserIdQuery;
+import com.example.finappapirest.finances.domain.model.queries.store.GetAllStoresQuery;
+import com.example.finappapirest.finances.domain.model.queries.store.GetStoreByIdQuery;
+import com.example.finappapirest.finances.domain.model.queries.store.GetStoreByUserIdQuery;
 
 import java.util.List;
 

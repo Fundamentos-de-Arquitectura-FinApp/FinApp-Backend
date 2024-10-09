@@ -1,8 +1,8 @@
 package com.example.finappapirest.finances.interfaces.rest;
 
-import com.example.finappapirest.finances.domain.model.queries.GetAllStoresQuery;
-import com.example.finappapirest.finances.domain.model.queries.GetStoreByIdQuery;
-import com.example.finappapirest.finances.domain.model.queries.GetStoreByUserIdQuery;
+import com.example.finappapirest.finances.domain.model.queries.store.GetAllStoresQuery;
+import com.example.finappapirest.finances.domain.model.queries.store.GetStoreByIdQuery;
+import com.example.finappapirest.finances.domain.model.queries.store.GetStoreByUserIdQuery;
 import com.example.finappapirest.finances.domain.services.StoreCommandService;
 import com.example.finappapirest.finances.domain.services.StoreQueryService;
 import com.example.finappapirest.finances.interfaces.rest.resources.request.CreateStoreRequest;

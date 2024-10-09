@@ -1,4 +1,4 @@
-package com.example.finappapirest.finances.domain.model.commands;
+package com.example.finappapirest.finances.domain.model.commands.store;
 
 public record UpdateStoreCommand(
         Long id,
