@@ -13,4 +13,7 @@ public class Account {
     @OneToOne()
     @JsonIgnore
     private Client client;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Store store;
 }

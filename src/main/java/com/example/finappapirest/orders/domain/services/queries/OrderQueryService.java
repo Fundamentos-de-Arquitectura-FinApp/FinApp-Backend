@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface OrderQueryService {
     List<Order> handle(GetAllOrdersQuery query);
-    List<Order> handle(GetOrderByIdQuery query);
+    Order handle(GetOrderByIdQuery query);
     List<Order> handle(GetOrderByClientIdQuery query);
     List<Order> handle(GetOrdersByStoreQuery query);
-    List<Order> handle(GetOrderByCreditIdQuery query);
+    Order handle(GetOrderByCreditIdQuery query);
 }

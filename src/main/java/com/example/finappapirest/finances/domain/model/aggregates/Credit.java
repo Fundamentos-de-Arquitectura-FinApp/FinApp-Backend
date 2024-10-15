@@ -1,10 +1,7 @@
 package com.example.finappapirest.finances.domain.model.aggregates;
 
 import com.example.finappapirest.finances.domain.model.valueobjects.CreditType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Credit {
@@ -13,4 +10,6 @@ public class Credit {
     private Long id;
     private Float amount;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Account account;
 }
