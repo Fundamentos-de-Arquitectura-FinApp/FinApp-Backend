@@ -1,4 +1,4 @@
-package com.example.finappapirest.finances.domain.services;
+package com.example.finappapirest.finances.domain.services.commands;
 
 import com.example.finappapirest.finances.domain.model.aggregates.Store;
 import com.example.finappapirest.finances.domain.model.commands.store.CreateStoreCommand;

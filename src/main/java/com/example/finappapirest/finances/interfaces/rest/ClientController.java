@@ -6,8 +6,8 @@ import com.example.finappapirest.finances.domain.model.commands.client.UpdateCli
 import com.example.finappapirest.finances.domain.model.queries.client.GetAllClientsQuery;
 import com.example.finappapirest.finances.domain.model.queries.client.GetClientByIdQuery;
 import com.example.finappapirest.finances.domain.model.queries.client.GetClientsByStoreQuery;
-import com.example.finappapirest.finances.domain.services.ClientCommandService;
-import com.example.finappapirest.finances.domain.services.ClientQueryService;
+import com.example.finappapirest.finances.domain.services.commands.ClientCommandService;
+import com.example.finappapirest.finances.domain.services.queries.ClientQueryService;
 import com.example.finappapirest.finances.interfaces.rest.resources.request.CreateClientRequest;
 import com.example.finappapirest.finances.interfaces.rest.resources.request.UpdateClienteRequest;
 import com.example.finappapirest.finances.interfaces.rest.resources.response.ClientResponse;
@@ -17,14 +17,11 @@ import com.example.finappapirest.shared.interfaces.utils.UserUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 @RestController()
 @RequestMapping("/api/v1/clients")

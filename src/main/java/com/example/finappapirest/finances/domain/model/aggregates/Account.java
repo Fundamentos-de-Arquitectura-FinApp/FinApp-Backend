@@ -2,7 +2,11 @@ package com.example.finappapirest.finances.domain.model.aggregates;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 public class Account {
     @Id
@@ -16,4 +20,11 @@ public class Account {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Store store;
+
+    public Account() {}
+    public Account(Float creditLine, Client client, Store store) {
+        this.creditLine = creditLine;
+        this.client = client;
+        this.store = store;
+    }
 }

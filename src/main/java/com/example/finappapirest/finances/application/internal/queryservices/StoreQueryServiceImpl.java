@@ -4,7 +4,7 @@ import com.example.finappapirest.finances.domain.model.aggregates.Store;
 import com.example.finappapirest.finances.domain.model.queries.store.GetAllStoresQuery;
 import com.example.finappapirest.finances.domain.model.queries.store.GetStoreByIdQuery;
 import com.example.finappapirest.finances.domain.model.queries.store.GetStoreByUserIdQuery;
-import com.example.finappapirest.finances.domain.services.StoreQueryService;
+import com.example.finappapirest.finances.domain.services.queries.StoreQueryService;
 import com.example.finappapirest.finances.infraestructure.persistence.jpa.repositories.StoreRepository;
 import com.example.finappapirest.shared.domain.model.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;

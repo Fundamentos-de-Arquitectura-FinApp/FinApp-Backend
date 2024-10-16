@@ -1,4 +1,4 @@
-package com.example.finappapirest.finances.domain.services;
+package com.example.finappapirest.finances.domain.services.queries;
 
 import com.example.finappapirest.finances.domain.model.aggregates.Store;
 import com.example.finappapirest.finances.domain.model.queries.store.GetAllStoresQuery;

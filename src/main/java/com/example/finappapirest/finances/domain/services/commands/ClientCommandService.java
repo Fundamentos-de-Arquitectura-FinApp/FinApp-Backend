@@ -1,4 +1,4 @@
-package com.example.finappapirest.finances.domain.services;
+package com.example.finappapirest.finances.domain.services.commands;
 
 import com.example.finappapirest.finances.domain.model.aggregates.Client;
 import com.example.finappapirest.finances.domain.model.commands.client.CreateClientCommand;

@@ -7,8 +7,8 @@ import com.example.finappapirest.finances.domain.model.queries.client.GetClientB
 import com.example.finappapirest.finances.domain.model.queries.client.GetClientByIdQuery;
 import com.example.finappapirest.finances.domain.model.queries.client.GetClientsByStoreQuery;
 import com.example.finappapirest.finances.domain.model.queries.store.GetStoreByUserIdQuery;
-import com.example.finappapirest.finances.domain.services.ClientQueryService;
-import com.example.finappapirest.finances.domain.services.StoreQueryService;
+import com.example.finappapirest.finances.domain.services.queries.ClientQueryService;
+import com.example.finappapirest.finances.domain.services.queries.StoreQueryService;
 import com.example.finappapirest.finances.infraestructure.persistence.jpa.repositories.ClientRepository;
 import com.example.finappapirest.shared.domain.model.exceptions.NotFoundException;
 import com.example.finappapirest.shared.interfaces.utils.UserUtils;

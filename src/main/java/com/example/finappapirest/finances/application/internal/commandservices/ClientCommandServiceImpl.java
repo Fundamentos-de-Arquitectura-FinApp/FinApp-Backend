@@ -5,8 +5,8 @@ import com.example.finappapirest.finances.domain.model.commands.client.CreateCli
 import com.example.finappapirest.finances.domain.model.commands.client.DeleteClientCommand;
 import com.example.finappapirest.finances.domain.model.commands.client.UpdateClientCommand;
 import com.example.finappapirest.finances.domain.model.queries.store.GetStoreByUserIdQuery;
-import com.example.finappapirest.finances.domain.services.ClientCommandService;
-import com.example.finappapirest.finances.domain.services.StoreQueryService;
+import com.example.finappapirest.finances.domain.services.commands.ClientCommandService;
+import com.example.finappapirest.finances.domain.services.queries.StoreQueryService;
 import com.example.finappapirest.finances.infraestructure.persistence.jpa.repositories.ClientRepository;
 import com.example.finappapirest.finances.infraestructure.persistence.jpa.repositories.StoreRepository;
 import com.example.finappapirest.security.domain.model.valueobjects.Roles;

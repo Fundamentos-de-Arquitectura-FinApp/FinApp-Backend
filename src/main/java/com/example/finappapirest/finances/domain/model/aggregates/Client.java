@@ -29,4 +29,11 @@ public class Client extends AuditableModel {
 
     private Long userId;
     private boolean isActive = true;
+
+    public void openAccount(Float creditLine) {
+        this.account = new Account(creditLine, this, this.store);
+    }
+    public void updateAccount(Float creditLine) {
+        this.account.setCreditLine(creditLine);
+    }
 }
