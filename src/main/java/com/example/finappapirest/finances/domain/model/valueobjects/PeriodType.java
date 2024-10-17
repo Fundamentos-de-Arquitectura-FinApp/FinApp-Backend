@@ -20,4 +20,13 @@ public enum PeriodType {
     public int getValue() {
         return value;
     }
+
+    public static PeriodType fromValue(int value) {
+        for (PeriodType type : PeriodType.values()) {
+            if (type.getValue() == value) {
+                return type;
+            }
+        }
+        throw new IllegalArgumentException("No matching PeriodType for value: " + value);
+    }
 }
