@@ -1,6 +1,7 @@
 package com.example.finappapirest.inventory.interfaces.acl;
 
 import com.example.finappapirest.inventory.domain.model.entities.Product;
+import com.example.finappapirest.inventory.domain.model.queries.ExistsProductById;
 import com.example.finappapirest.inventory.domain.model.queries.GetProductByIdQuery;
 import com.example.finappapirest.inventory.domain.services.queries.ProductsQueryService;
 import lombok.AllArgsConstructor;
@@ -16,4 +17,10 @@ public class ProductServiceFacade {
         var query = new GetProductByIdQuery(productId);
         return productQueryService.handle(query);
     }
+
+    public boolean existsProduct(Long productId) {
+        var query = new ExistsProductById(productId);
+        return productQueryService.handle(query);
+    }
+
 }

@@ -4,6 +4,7 @@ import com.example.finappapirest.security.domain.model.entities.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.AbstractAggregateRoot;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 @Getter
+@Setter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class User extends AbstractAggregateRoot<User> {

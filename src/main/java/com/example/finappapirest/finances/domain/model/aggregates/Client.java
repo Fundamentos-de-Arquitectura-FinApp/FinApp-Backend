@@ -2,25 +2,38 @@ package com.example.finappapirest.finances.domain.model.aggregates;
 
 import com.example.finappapirest.shared.domain.model.entities.AuditableModel;
 import jakarta.persistence.*;
+import lombok.*;
+
 
 @Entity
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
 public class Client extends AuditableModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String email;
     private String names;
-    private String paternSurname;
-    private String maternSurname;
+    private String paternalSurname;
+    private String maternalSurname;
     private String dni;
     private String phone;
     private String photo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Store store;
 
     @OneToOne(mappedBy = "client", cascade = CascadeType.ALL)
     private Account account;
 
     private Long userId;
+    private boolean isActive = true;
+
+    public void openAccount(Float creditLine) {
+        this.account = new Account(creditLine, this, this.store);
+    }
+    public void updateAccount(Float creditLine) {
+        this.account.setCreditLine(creditLine);
+    }
 }

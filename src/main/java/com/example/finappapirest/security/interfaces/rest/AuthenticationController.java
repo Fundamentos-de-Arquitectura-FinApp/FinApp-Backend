@@ -9,6 +9,7 @@ import com.example.finappapirest.security.interfaces.rest.transform.Authenticate
 import com.example.finappapirest.security.interfaces.rest.transform.SignInCommandFromResourceAssembler;
 import com.example.finappapirest.security.interfaces.rest.transform.SignUpCommandFromResourceAssembler;
 import com.example.finappapirest.security.interfaces.rest.transform.UserResourceFromEntityAssembler;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,6 +30,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/sign-in")
+    @Operation(summary = "Sign in", description = "Sign in with email and password")
     public ResponseEntity<AuthenticatedUserResource> signIn(@RequestBody SignInResource signInResource) {
         var signInCommand = SignInCommandFromResourceAssembler.toCommandFromResource(signInResource);
         var authenticatedUser = userCommandService.handle(signInCommand);
@@ -41,6 +43,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/sign-up")
+    @Operation(summary = "Sign up", description = "Sign up with email, password and role")
     public ResponseEntity<UserResource> signUp(@RequestBody SignUpResource signUpResource) {
         var signUpCommand = SignUpCommandFromResourceAssembler.toCommandFromResource(signUpResource);
         var user = userCommandService.handle(signUpCommand);

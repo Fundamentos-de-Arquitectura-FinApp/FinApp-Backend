@@ -2,8 +2,12 @@ package com.example.finappapirest.orders.domain.model.entities;
 
 import com.example.finappapirest.orders.domain.model.aggregates.Order;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "order_items")
 public class OrderItem {
     @Id

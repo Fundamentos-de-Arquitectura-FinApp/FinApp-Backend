@@ -2,6 +2,7 @@ package com.example.finappapirest.security.infrastructure.authorization.sfs.pipe
 
 import com.example.finappapirest.security.infrastructure.authorization.sfs.model.UsernamePasswordAuthenticationTokenBuilder;
 import com.example.finappapirest.security.infrastructure.tokens.jwt.BearerTokenService;
+import com.example.finappapirest.shared.domain.model.exceptions.UnauthorizedException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -42,6 +43,7 @@ public class BearerAuthorizationRequestFilter extends OncePerRequestFilter {
                         .build(userDetails, request));
             } else {
                 LOGGER.warn("Token is not valid");
+                throw new UnauthorizedException("Token is not valid");
             }
         } catch (Exception e) {
             LOGGER.error("Cannot set user authentication: {}", e.getMessage());
