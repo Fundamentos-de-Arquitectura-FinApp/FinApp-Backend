@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @DiscriminatorValue("effective")
-@NoArgsConstructor
-@Builder
-@AllArgsConstructor
 public class EffectiveRate extends InterestRate{
+    public EffectiveRate() {
+        super();
+    }
     public EffectiveRate(Float value, PeriodType periodType) {
         super(value,periodType);
     }

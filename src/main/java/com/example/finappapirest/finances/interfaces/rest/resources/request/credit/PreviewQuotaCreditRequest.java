@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public record PreviewQuotaCreditRequest(
         Long orderId,
-        Long initialPayment,
+        Float initialPayment,
         CreateInterestRateRequest compensatoryRate,
         CreateInterestRateRequest moratoriumRate,
         LocalDate disbursementDate,

@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PaymentPlanRepository extends JpaRepository<PaymentPlan, Long> {
+    PaymentPlan findByCredit_Id(Long creditId);
 
 }

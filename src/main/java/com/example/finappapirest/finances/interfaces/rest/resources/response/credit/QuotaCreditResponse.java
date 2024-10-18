@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public class QuotaCreditResponse extends CreditResponse{
     public Long orderId;
-    public Long initialPayment;
+    public Float initialPayment;
     public CreateInterestRateResponse compensatoryRate;
     public CreateInterestRateResponse moratoriumRate;
     public LocalDate disbursementDate;

@@ -13,4 +13,7 @@ public record CreateInterestRateResponse(
        if(rateType==RateType.EFFECTIVE)
            capitalizationPeriod = null;
     }
+    public CreateInterestRateResponse(PeriodType period, Float rate, RateType rateType) {
+        this(period, rate,rateType, null);
+    }
 }

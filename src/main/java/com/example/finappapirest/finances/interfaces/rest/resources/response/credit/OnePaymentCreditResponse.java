@@ -2,7 +2,7 @@ package com.example.finappapirest.finances.interfaces.rest.resources.response.cr
 
 import java.time.LocalDate;
 
-public class OnePaymentCreditResponse extends CreditResponse{
 
-    LocalDate dueDate;
+public class OnePaymentCreditResponse extends CreditResponse{
+    public LocalDate dueDate;
 }

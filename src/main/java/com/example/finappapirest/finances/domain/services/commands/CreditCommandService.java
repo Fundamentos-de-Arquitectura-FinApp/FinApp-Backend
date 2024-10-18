@@ -11,5 +11,6 @@ import com.example.finappapirest.finances.domain.model.entities.QuotaCredit;
 public interface CreditCommandService {
     OnePaymentCredit handle(CreateOnePaymentCreditCommand command);
     QuotaCredit handle(CreateQuotaCreditCommand command);
-
+    OnePaymentCredit handle(PreviewOnePaymentCreditCommand command);
+    QuotaCredit handle(PreviewQuotaCreditCommand command);
 }

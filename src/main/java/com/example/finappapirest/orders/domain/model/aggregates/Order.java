@@ -30,6 +30,6 @@ public class Order extends AuditableModel {
     private Credit credit;
 
     public Double calculateTotal() {
-        return  this.items.stream().mapToDouble(OrderItem::calculateSubtotal).sum();
+        return this.items.stream().mapToDouble(OrderItem::calculateSubtotal).sum();
     }
 }

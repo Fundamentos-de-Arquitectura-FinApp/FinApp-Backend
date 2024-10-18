@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public record CreateQuotaCreditRequest(
         Long accountId,
         Long orderId,
-        Long initialPayment,
+        Float initialPayment,
         CreateInterestRateRequest compensatoryRate,
         CreateInterestRateRequest moratoriumRate,
         LocalDate disbursementDate,

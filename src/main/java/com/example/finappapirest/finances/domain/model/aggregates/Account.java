@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Setter
 @Getter
 @Entity
@@ -18,6 +21,9 @@ public class Account {
     @JsonIgnore
     private Client client;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Credit> credits = new ArrayList<>();
+
     @ManyToOne(fetch = FetchType.EAGER)
     private Store store;
 
@@ -26,5 +32,8 @@ public class Account {
         this.creditLine = creditLine;
         this.client = client;
         this.store = store;
+    }
+    public void addCredit(Credit credit) {
+        this.credits.add(credit);
     }
 }

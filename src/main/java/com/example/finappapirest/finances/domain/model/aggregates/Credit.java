@@ -38,7 +38,6 @@ public abstract class Credit extends AuditableModel {
     protected Account account;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-
     @JoinColumn(name="payment_plan_id")
     protected PaymentPlan paymentPlan;
 

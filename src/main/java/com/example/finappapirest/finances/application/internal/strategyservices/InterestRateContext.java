@@ -8,7 +8,6 @@ import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 @Setter
-@Service
 public class InterestRateContext {
     private InterestRateStrategy strategy;
 

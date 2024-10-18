@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public record CreateOnePaymentRequest(
         Long accountId,
         Long orderId,
-        Long initialPayment,
+        Float initialPayment,
         CreateInterestRateRequest compensatoryRate,
         CreateInterestRateRequest moratoriumRate,
         LocalDate disbursementDate,

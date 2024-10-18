@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public record PreviewOnePaymentCreditCommand(
         Long orderId,
-        Long initialPayment,
+        Float initialPayment,
         CreateInterestRateRequest compensatoryRate,
         CreateInterestRateRequest moratoriumRate,
         LocalDate disbursementDate,

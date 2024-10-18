@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class CreditResponse {
     public Long creditId;
     public Long orderId;
-    public Long initialPayment;
+    public Float initialPayment;
     public Float totalAmount;
     public CreateInterestRateResponse compensatoryRate;
     public CreateInterestRateResponse moratoriumRate;

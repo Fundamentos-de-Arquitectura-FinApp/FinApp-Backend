@@ -5,6 +5,7 @@ import com.example.finappapirest.finances.interfaces.rest.resources.request.cred
 import java.time.LocalDate;
 
 public record CreateOnePaymentCreditCommand(
+        Long accountId,
         Long orderId,
         Float initialPayment,
         CreateInterestRateRequest compensatoryRate,
