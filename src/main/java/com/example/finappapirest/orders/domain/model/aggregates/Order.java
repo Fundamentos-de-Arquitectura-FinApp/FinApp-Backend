@@ -29,6 +29,11 @@ public class Order extends AuditableModel {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Credit credit;
 
+    public void addItem(OrderItem item) {
+        this.items.add(item);
+        item.setOrder(this);
+    }
+
     public Double calculateTotal() {
         return this.items.stream().mapToDouble(OrderItem::calculateSubtotal).sum();
     }

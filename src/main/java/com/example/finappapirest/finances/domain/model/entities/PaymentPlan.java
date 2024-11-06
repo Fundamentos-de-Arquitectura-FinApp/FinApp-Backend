@@ -69,11 +69,16 @@ public class PaymentPlan {
     public void createForQuotaCredit(QuotaCredit quotaCredit) {
         InterestRateContext interestRateContext = new InterestRateContext();
 
+
         double TEA = interestRateContext.convertRate(quotaCredit.getCompensatoryRate(), PeriodType.ANNUALLY.getValue());
+        System.out.println("TEA: " + TEA);
+
         double TEP = interestRateContext.convertRate(quotaCredit.getCompensatoryRate(), quotaCredit.getPaymentPeriod().getValue());
         int numQuotas = quotaCredit.getNumQuotas();
         int numGracePeriods = quotaCredit.getGrace().getNumQuotas();
         GraceType graceType = quotaCredit.getGrace().getGraceType();
+
+
 
         Quota quotaZero = new Quota();
         quotaZero.setNumber(0);

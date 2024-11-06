@@ -25,15 +25,13 @@ public class OrderCommandServiceImpl implements OrderCommandService {
     @Override
     public Order handle(CreateOrderCommand command) {
         Order order = new Order();
-        List<OrderItem> items = new ArrayList<>();
         command.orderItems().forEach(item -> {
             var product = productServiceFacade.getProductById(item.productId());
             if(product == null) {
                 throw new BadRequestException("Product with id " + item.productId() + " not found");
             }
-            items.add(new OrderItem(product.getId(), item.quantity(), product.getPrice()));
+            order.addItem(new OrderItem(product.getId(), item.quantity(), product.getPrice()));
         });
-        order.setItems(items);
         this.orderRepository.save(order);
         return order;
     }
@@ -41,12 +39,10 @@ public class OrderCommandServiceImpl implements OrderCommandService {
     @Override
     public Order handle(PreviewOrderCommand command) {
         Order order = new Order();
-        List<OrderItem> items = new ArrayList<>();
         command.orderItems().forEach(item -> {
             var product = productServiceFacade.getProductById(item.productId());
-            items.add(new OrderItem(product.getId(), item.quantity(), product.getPrice()));
+            order.addItem(new OrderItem(product.getId(), item.quantity(), product.getPrice()));
         });
-        order.setItems(items);
         this.orderRepository.save(order);
         return order;
     }

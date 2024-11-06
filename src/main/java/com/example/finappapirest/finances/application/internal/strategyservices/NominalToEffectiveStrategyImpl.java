@@ -17,7 +17,15 @@ public class NominalToEffectiveStrategyImpl implements InterestRateStrategy {
             double n = periodInDays / (capitalization * 1.0);
             double m = periodRate / (capitalization * 1.0);
 
-            return Math.pow(1 + rate.getValue() / m, n) - 1;
+            System.out.println("Type rate: Nominal");
+            System.out.println("n: " + n);
+            System.out.println("m: " + m);
+            System.out.println("rate: " + rate.getValue());
+            System.out.println("periodInDays: " + periodInDays);
+            double result = Math.pow(1 + rate.getValue() / m, n) - 1;
+            System.out.println("result: " + result);
+
+            return result;
         }
         throw new InternalServerErrorException("Invalid rate type");
     }

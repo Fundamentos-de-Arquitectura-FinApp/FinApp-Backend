@@ -61,7 +61,7 @@ public class OrdersController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{clientId}")
+    @GetMapping("/client/{clientId}")
     @Operation(summary = "Get orders by client", description = "Get orders by client")
     public ResponseEntity<List<OrderResponse>> getOrdersByClient(@PathVariable Long clientId) {
         GetOrderByClientIdQuery query = new GetOrderByClientIdQuery(clientId);

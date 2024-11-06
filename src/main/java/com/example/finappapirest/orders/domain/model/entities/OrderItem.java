@@ -17,7 +17,7 @@ public class OrderItem {
     private Integer quantity;
     private Float price;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     private Order order;
 

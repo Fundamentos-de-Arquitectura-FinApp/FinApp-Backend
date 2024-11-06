@@ -66,6 +66,8 @@ public class CreditCommandServiceImpl implements CreditCommandService {
         Double orderAmount = orderServiceFacade.getAmountByOrderId(command.orderId());
         QuotaCredit credit = CreditFactory.create(command, orderAmount.floatValue());
         credit.createPaymentPlan();
+        System.out.println("orderAmount: " + orderAmount);
+
         return credit;
     }
 }
