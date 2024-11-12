@@ -93,7 +93,6 @@ public class WebSecurityConfiguration {
                             cors.setAllowedOrigins(java.util.List.of("*"));
                             cors.setAllowedMethods(java.util.List.of("*"));
                             cors.setAllowedHeaders(java.util.List.of("*"));
-                            cors.setAllowCredentials(true);
                             cors.setMaxAge(3600L);
                             return cors;
                         }))
