@@ -5,6 +5,6 @@ public record ProductResponse(
         String name,
         String description,
         Float price,
-        String imageURL
+        String imageUrl
 ) {
 }
