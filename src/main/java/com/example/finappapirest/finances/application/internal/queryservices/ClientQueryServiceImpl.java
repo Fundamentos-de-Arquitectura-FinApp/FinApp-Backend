@@ -31,22 +31,34 @@ public class ClientQueryServiceImpl implements ClientQueryService {
 
     @Override
     public Client handle(GetClientByIdQuery query) {
-        return clientRepository.findById(query.clientId()).orElseThrow(()->new NotFoundException(
+        var client = clientRepository.findById(query.clientId()).orElseThrow(()->new NotFoundException(
                 String.format("Client with id %s not found", query.clientId())
         ));
+        if (!client.isActive()) {
+            throw new NotFoundException(
+                    String.format("Client with id %s is not active", query.clientId())
+            );
+        }
+        return client;
     }
 
     @Override
     public Client handle(GetClientByDniQuery query) {
-        return clientRepository.findByDni(query.dni()).orElseThrow(()->new NotFoundException(
+        var client = clientRepository.findByDni(query.dni()).orElseThrow(()->new NotFoundException(
                 String.format("Client with dni %s not found", query.dni())
         ));
+        if (!client.isActive()) {
+            throw new NotFoundException(
+                    String.format("Client with dni %s is not active", query.dni())
+            );
+        }
+        return client;
     }
 
     @Override
     public List<Client> handle(GetClientsByStoreQuery query) {
          Long userId = UserUtils.getCurrentUserId();
          Store store = storeQueryService.handle(new GetStoreByUserIdQuery(userId));
-         return clientRepository.findByStoreId(store.getId());
+         return clientRepository.findByStoreId(store.getId()).stream().filter(Client::isActive).toList();
     }
 }

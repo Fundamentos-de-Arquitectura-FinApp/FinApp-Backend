@@ -7,9 +7,12 @@ import com.example.finappapirest.finances.domain.model.queries.store.GetStoreByU
 import com.example.finappapirest.finances.domain.services.commands.StoreCommandService;
 import com.example.finappapirest.finances.domain.services.queries.StoreQueryService;
 import com.example.finappapirest.finances.infraestructure.persistence.jpa.repositories.StoreRepository;
+import com.example.finappapirest.shared.domain.model.exceptions.BadRequestException;
 import com.example.finappapirest.shared.interfaces.utils.UserUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -20,6 +23,13 @@ public class StoreCommandServiceImpl implements StoreCommandService {
     @Override
     public Store handle(CreateStoreCommand command) {
         Long userId = UserUtils.getCurrentUserId();
+
+        Optional<Store> findStore = storeRepository.findByUserId(userId);
+
+        if(findStore.isPresent()) {
+            throw new BadRequestException("Store already exists");
+        }
+
         Store store = Store.builder()
                 .ruc(command.ruc())
                 .name(command.name())

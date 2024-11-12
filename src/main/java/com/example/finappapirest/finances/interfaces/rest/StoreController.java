@@ -1,5 +1,6 @@
 package com.example.finappapirest.finances.interfaces.rest;
 
+import com.example.finappapirest.finances.domain.model.queries.store.ExistStoreByUserIdQuery;
 import com.example.finappapirest.finances.domain.model.queries.store.GetAllStoresQuery;
 import com.example.finappapirest.finances.domain.model.queries.store.GetStoreByIdQuery;
 import com.example.finappapirest.finances.domain.model.queries.store.GetStoreByUserIdQuery;
@@ -18,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController()
@@ -40,32 +42,48 @@ public class StoreController {
     @Operation(summary = "Get store by id", description = "Get store by id in the system")
     public ResponseEntity<StoreResponse> getStore(@PathVariable Long id) {
         var query = new GetStoreByIdQuery(id);
+        var userEmail = UserUtils.getCurrentUserEmail();
         var store = storeQueryService.handle(query);
-        return ResponseEntity.ok(StoreResourceFromEntity.entityToResponse(store));
+        return ResponseEntity.ok(StoreResourceFromEntity.entityToResponse(store,userEmail));
     }
 
     @GetMapping("/user")
     @Operation(summary = "Get store by user", description = "Get store by user actual in the system")
     public ResponseEntity<StoreResponse> getStoreByUser() {
+        var userEmail = UserUtils.getCurrentUserEmail();
         var userId = UserUtils.getCurrentUserId();
         var query = new GetStoreByUserIdQuery(userId);
-        return ResponseEntity.ok(StoreResourceFromEntity.entityToResponse(storeQueryService.handle(query)));
+        return ResponseEntity.ok(StoreResourceFromEntity.entityToResponse(storeQueryService.handle(query), userEmail));
     }
 
     @PostMapping()
     @Operation(summary = "Create store", description = "Create store in the system")
     public ResponseEntity<StoreResponse> createStore(@RequestBody CreateStoreRequest request) {
+        var userEmail = UserUtils.getCurrentUserEmail();
         var command = StoreCommandFromResource.fromResource(request);
         var store = storeCommandService.handle(command);
-        return new ResponseEntity<>(StoreResourceFromEntity.entityToResponse(store), HttpStatus.CREATED);
+        return new ResponseEntity<>(StoreResourceFromEntity.entityToResponse(store,userEmail), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Update store", description = "Update store in the system")
     public ResponseEntity<StoreResponse> updateStore(@PathVariable Long id, @RequestBody UpdateStoreRequest request) {
+        var userEmail = UserUtils.getCurrentUserEmail();
         var command = StoreCommandFromResource.fromResource(request);
         var store = storeCommandService.handle(command);
-        return ResponseEntity.ok(StoreResourceFromEntity.entityToResponse(store));
+        return ResponseEntity.ok(StoreResourceFromEntity.entityToResponse(store,userEmail));
+    }
+
+    @GetMapping("/exists")
+    @Operation(summary = "Verify if an store exist for the current user", description = "Verify if an store exist for the current user")
+    public ResponseEntity<HashMap<String,Boolean>> existsStore() {
+        var userId = UserUtils.getCurrentUserId();
+        var query = new ExistStoreByUserIdQuery(userId);
+        boolean  existsStore = storeQueryService.handle(query);
+        HashMap<String, Boolean> response = new HashMap<>();
+        response.put("existStore", existsStore);
+        return ResponseEntity.ok().body(response);
+
     }
 
 }

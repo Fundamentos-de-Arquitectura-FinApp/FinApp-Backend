@@ -5,14 +5,25 @@ import com.example.finappapirest.finances.interfaces.rest.resources.response.Sto
 
 public class StoreResourceFromEntity {
 
-    public static StoreResponse entityToResponse(Store store){
+    public static StoreResponse entityToResponse(Store store, String email) {
         return new StoreResponse(
             store.getId(),
             store.getRuc(),
             store.getName(),
             store.getPhone(),
             store.getAddress(),
-            store.getPhoto()
+            store.getPhoto(),
+            email
+        );
+    }
+    public static StoreResponse entityToResponse(Store store) {
+        return new StoreResponse(
+                store.getId(),
+                store.getRuc(),
+                store.getName(),
+                store.getPhone(),
+                store.getAddress(),
+                store.getPhoto()
         );
     }
 }

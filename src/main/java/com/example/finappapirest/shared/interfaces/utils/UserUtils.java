@@ -17,4 +17,15 @@ public class UserUtils {
         }
         throw  new BadRequestException("User not authenticated");
     }
+    public static String getCurrentUserEmail(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserDetailsImpl) {
+                return ((UserDetailsImpl) principal).getUsername();
+            }
+        }
+        throw  new BadRequestException("User not authenticated");
+    }
 }
