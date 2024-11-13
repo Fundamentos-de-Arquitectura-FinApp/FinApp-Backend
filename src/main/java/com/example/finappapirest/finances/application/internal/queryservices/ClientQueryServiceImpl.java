@@ -44,12 +44,19 @@ public class ClientQueryServiceImpl implements ClientQueryService {
 
     @Override
     public Client handle(GetClientByDniQuery query) {
+        Long userId = UserUtils.getCurrentUserId();
+        Store store = storeQueryService.handle(new GetStoreByUserIdQuery(userId));
         var client = clientRepository.findByDni(query.dni()).orElseThrow(()->new NotFoundException(
                 String.format("Client with dni %s not found", query.dni())
         ));
         if (!client.isActive()) {
             throw new NotFoundException(
                     String.format("Client with dni %s is not active", query.dni())
+            );
+        }
+        if (!client.getStore().getId().equals(store.getId())) {
+            throw new NotFoundException(
+                    String.format("Client with dni %s is not from the store", query.dni())
             );
         }
         return client;

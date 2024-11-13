@@ -4,6 +4,7 @@ import com.example.finappapirest.finances.domain.model.commands.client.CreateCli
 import com.example.finappapirest.finances.domain.model.commands.client.DeleteClientCommand;
 import com.example.finappapirest.finances.domain.model.commands.client.UpdateClientCommand;
 import com.example.finappapirest.finances.domain.model.queries.client.GetAllClientsQuery;
+import com.example.finappapirest.finances.domain.model.queries.client.GetClientByDniQuery;
 import com.example.finappapirest.finances.domain.model.queries.client.GetClientByIdQuery;
 import com.example.finappapirest.finances.domain.model.queries.client.GetClientsByStoreQuery;
 import com.example.finappapirest.finances.domain.services.commands.ClientCommandService;
@@ -55,6 +56,15 @@ public class ClientController {
     @Operation(summary = "Get client by id", description = "Get client by id from the system")
     public ResponseEntity<ClientResponse> getClient(@PathVariable("clientId") Long clientId) {
         var query = new GetClientByIdQuery(clientId);
+        var client = clientQueryService.handle(query);
+        var clientResponse = ClientResourceFromEntity.fromEntity(client);
+        return ResponseEntity.ok(clientResponse);
+    }
+
+    @GetMapping("/search/{dni}")
+    @Operation(summary = "Get client by id", description = "Get client by dni")
+    public ResponseEntity<ClientResponse> getClientByDni(@PathVariable("dni") String dni) {
+        var query = new GetClientByDniQuery(dni);
         var client = clientQueryService.handle(query);
         var clientResponse = ClientResourceFromEntity.fromEntity(client);
         return ResponseEntity.ok(clientResponse);
