@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -19,16 +20,29 @@ public class ProductsQueryServiceImpl implements ProductsQueryService {
 
     @Override
     public List<Product> handle(GetAllProductsByStoreQuery query) {
-        return this.productsRepository.findByStoreId(query.storeId());
+        return this.productsRepository.findByStoreId(query.storeId()).stream().filter(
+                Product::getIsActive
+        ).toList();
     }
 
     @Override
     public Product handle(GetProductByIdQuery query) {
-        return this.productsRepository.findById(query.productId()).orElseThrow(()->new BadRequestException("Product not found"));
+        Optional<Product> product = this.productsRepository.findById(query.productId());
+        if(product.isEmpty()) {
+            throw new BadRequestException("Product not found");
+        }
+        if(product.get().getIsActive()) {
+            return product.get();
+        }
+        throw new BadRequestException("Product was deleted, so it is not available");
     }
 
     @Override
     public boolean handle(ExistsProductById query) {
-        return this.productsRepository.existsById(query.productId());
+        Optional<Product> product = this.productsRepository.findById(query.productId());
+        if(product.isEmpty()) {
+            return false;
+        }
+        return product.get().getIsActive();
     }
 }
