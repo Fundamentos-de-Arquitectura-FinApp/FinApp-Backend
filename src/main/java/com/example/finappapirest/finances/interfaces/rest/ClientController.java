@@ -1,5 +1,6 @@
 package com.example.finappapirest.finances.interfaces.rest;
 
+import com.example.finappapirest.finances.domain.model.aggregates.Client;
 import com.example.finappapirest.finances.domain.model.commands.client.CreateClientCommand;
 import com.example.finappapirest.finances.domain.model.commands.client.DeleteClientCommand;
 import com.example.finappapirest.finances.domain.model.commands.client.UpdateClientCommand;
@@ -23,6 +24,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController()
 @RequestMapping("/api/v1/clients")
@@ -62,7 +64,7 @@ public class ClientController {
     }
 
     @GetMapping("/search/{dni}")
-    @Operation(summary = "Get client by id", description = "Get client by dni")
+    @Operation(summary = "Get client by dni", description = "Get client by dni")
     public ResponseEntity<ClientResponse> getClientByDni(@PathVariable("dni") String dni) {
         var query = new GetClientByDniQuery(dni);
         var client = clientQueryService.handle(query);
@@ -94,5 +96,14 @@ public class ClientController {
         var command = new DeleteClientCommand(clientId);
         clientCommandService.handle(command);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/isAllowedCredit/{dni}")
+    @Operation(summary = "Check if client is allowed credit", description = "Check if client is allowed credit")
+    public ResponseEntity<Map<String,Object>> isAllowedCredit(@PathVariable("dni") String dni) {
+        var query = new GetClientByDniQuery(dni);
+        Client client = clientQueryService.handle(query);
+        Map<String, Object> response = Map.of("isAllowedCredit", client.isAllowedCredit());
+        return ResponseEntity.ok(response);
     }
 }

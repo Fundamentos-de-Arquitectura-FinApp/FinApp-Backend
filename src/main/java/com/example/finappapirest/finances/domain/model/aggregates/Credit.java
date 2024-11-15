@@ -20,6 +20,8 @@ public abstract class Credit extends AuditableModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
 
+    protected boolean isActive = true;
+
     protected Long orderId;
 
     protected Float amount;

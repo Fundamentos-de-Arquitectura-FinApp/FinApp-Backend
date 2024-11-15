@@ -36,4 +36,8 @@ public class Client extends AuditableModel {
     public void updateAccount(Float creditLine) {
         this.account.setCreditLine(creditLine);
     }
+    public boolean isAllowedCredit() {
+        Long creditsActives = this.account.getCredits().stream().filter(Credit::isActive).count();
+        return creditsActives < 3;
+    }
 }
