@@ -15,6 +15,7 @@ import com.example.finappapirest.finances.interfaces.rest.resources.request.Upda
 import com.example.finappapirest.finances.interfaces.rest.resources.response.ClientResponse;
 import com.example.finappapirest.finances.interfaces.rest.transform.ClientCommandFromResource;
 import com.example.finappapirest.finances.interfaces.rest.transform.ClientResourceFromEntity;
+import com.example.finappapirest.security.interfaces.acl.UserServiceFacade;
 import com.example.finappapirest.shared.interfaces.utils.UserUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -34,13 +35,16 @@ public class ClientController {
 
     private final ClientCommandService clientCommandService;
     private final ClientQueryService clientQueryService;
+    private final UserServiceFacade userServiceFacade;
 
     @GetMapping()
     @Operation(summary = "Get all clients", description = "Get all clients from the system")
     public ResponseEntity<List<ClientResponse>> getAllClients() {
         var query = new GetAllClientsQuery();
         var clients = clientQueryService.handle(query);
-        var clientsResponse = clients.stream().map(ClientResourceFromEntity::fromEntity).toList();
+        var clientsResponse = clients.stream().map(client->
+                ClientResourceFromEntity.fromEntity(client, userServiceFacade.getUserEmail(client.getUserId()))
+        ).toList();
         return ResponseEntity.ok(clientsResponse);
     }
 
@@ -50,7 +54,9 @@ public class ClientController {
         Long userId = UserUtils.getCurrentUserId();
         var query = new GetClientsByStoreQuery(userId);
         var clients = clientQueryService.handle(query);
-        var clientsResponse = clients.stream().map(ClientResourceFromEntity::fromEntity).toList();
+        var clientsResponse = clients.stream().map(client->
+                ClientResourceFromEntity.fromEntity(client, userServiceFacade.getUserEmail(client.getUserId()))
+        ).toList();
         return ResponseEntity.ok(clientsResponse);
     }
 
@@ -59,7 +65,7 @@ public class ClientController {
     public ResponseEntity<ClientResponse> getClient(@PathVariable("clientId") Long clientId) {
         var query = new GetClientByIdQuery(clientId);
         var client = clientQueryService.handle(query);
-        var clientResponse = ClientResourceFromEntity.fromEntity(client);
+        var clientResponse = ClientResourceFromEntity.fromEntity(client, userServiceFacade.getUserEmail(client.getUserId()));
         return ResponseEntity.ok(clientResponse);
     }
 
@@ -68,7 +74,7 @@ public class ClientController {
     public ResponseEntity<ClientResponse> getClientByDni(@PathVariable("dni") String dni) {
         var query = new GetClientByDniQuery(dni);
         var client = clientQueryService.handle(query);
-        var clientResponse = ClientResourceFromEntity.fromEntity(client);
+        var clientResponse = ClientResourceFromEntity.fromEntity(client, userServiceFacade.getUserEmail(client.getUserId()));
         return ResponseEntity.ok(clientResponse);
     }
 
@@ -77,7 +83,7 @@ public class ClientController {
     public ResponseEntity<ClientResponse> createClient(@RequestBody CreateClientRequest request) {
         CreateClientCommand command = ClientCommandFromResource.fromResource(request);
         var client = clientCommandService.handle(command);
-        var clientResponse = ClientResourceFromEntity.fromEntity(client);
+        var clientResponse = ClientResourceFromEntity.fromEntity(client, userServiceFacade.getUserEmail(client.getUserId()));
         return new ResponseEntity<>(clientResponse,HttpStatus.CREATED);
     }
 
@@ -86,7 +92,7 @@ public class ClientController {
     public ResponseEntity<ClientResponse> updateClient(@PathVariable("clientId") Long clientId, @RequestBody UpdateClienteRequest request) {
         UpdateClientCommand command = ClientCommandFromResource.fromResource(request,clientId);
         var client = clientCommandService.handle(command);
-        var clientResponse = ClientResourceFromEntity.fromEntity(client);
+        var clientResponse = ClientResourceFromEntity.fromEntity(client, userServiceFacade.getUserEmail(client.getUserId()));
         return ResponseEntity.ok(clientResponse);
     }
 

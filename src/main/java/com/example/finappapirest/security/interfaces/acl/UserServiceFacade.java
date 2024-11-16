@@ -2,6 +2,7 @@ package com.example.finappapirest.security.interfaces.acl;
 
 import com.example.finappapirest.security.domain.model.aggregates.User;
 import com.example.finappapirest.security.domain.model.commands.SignUpCommand;
+import com.example.finappapirest.security.domain.model.queries.GetUserByIdQuery;
 import com.example.finappapirest.security.domain.model.valueobjects.Roles;
 import com.example.finappapirest.security.domain.services.UserCommandService;
 import com.example.finappapirest.security.domain.services.UserQueryService;
@@ -27,5 +28,10 @@ public class UserServiceFacade {
             throw new InternalServerErrorException("User not created");
         }
         return user.get().getId();
+    }
+    public String getUserEmail(Long userId){
+        var query = new GetUserByIdQuery(userId);
+        var user = userQueryService.handle(query);
+        return user.isPresent()?user.get().getUsername():"";
     }
 }
