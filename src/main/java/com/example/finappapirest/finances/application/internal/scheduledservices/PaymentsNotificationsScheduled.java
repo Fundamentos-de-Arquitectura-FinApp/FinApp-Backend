@@ -43,13 +43,13 @@ public class PaymentsNotificationsScheduled {
                 List<Quota> quotas = paymentPlan.getQuotas();
                 for (Quota quota : quotas) {
                     if(quota.getStatus()==QuotaStatus.OVERDUE){
-                        messageBody = "title: Pago atrasado, message: El pago de la cuota "+quota.getNumber()+" del credito "+credit.getId()+" esta atrasado del cliente" +
+                        messageBody = "title: Pago atrasado, message: El pago de la cuota "+quota.getNumber()+" del credito "+credit.getId()+" esta atrasado del cliente " +
                                 account.getClient().getNames()+" con DNI "+account.getClient().getDni()+" de la tienda "+account.getStore().getName();
 
                         notificationServiceFacade.sendNotification(StoreId,messageBody);
                     }
                     if(quota.getStatus()== QuotaStatus.PENDING && LocalDate.now().isAfter(quota.getDueDate().minusDays(3))){
-                        messageBody = "title: Pago proximo, message: El pago de la cuota "+quota.getNumber()+" del credito "+credit.getId()+" esta proximo del cliente" +
+                        messageBody = "title: Pago proximo, message: El pago de la cuota "+quota.getNumber()+" del credito "+credit.getId()+" esta proximo del cliente " +
                                 account.getClient().getNames()+" con DNI "+account.getClient().getDni()+" de la tienda "+account.getStore().getName();
 
                         notificationServiceFacade.sendNotification(StoreId,messageBody);
