@@ -49,7 +49,7 @@ public class PaymentPlanController {
         return ResponseEntity.ok(planResponse);
     }
 
-    @GetMapping("/{creditId}")
+    @GetMapping("/credit/{creditId}")
     @Operation(summary = "Get Payment Plan by Credit Id", description = "Get Payment Plan by Credit Id from the system")
     public ResponseEntity<PaymentPlanResponse> getPaymentPlanByCreditId(@PathVariable Long creditId) {
         GetPaymentPlanByCreditId query = new GetPaymentPlanByCreditId(creditId);

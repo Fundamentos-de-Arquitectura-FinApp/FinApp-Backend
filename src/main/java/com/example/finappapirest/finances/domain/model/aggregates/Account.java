@@ -21,7 +21,7 @@ public class Account {
     @JsonIgnore
     private Client client;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Credit> credits = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)

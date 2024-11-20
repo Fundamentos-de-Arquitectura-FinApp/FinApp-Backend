@@ -21,7 +21,7 @@ public class Client extends AuditableModel {
     private String phone;
     private String photo;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Store store;
 
     @OneToOne(mappedBy = "client", cascade = CascadeType.ALL)

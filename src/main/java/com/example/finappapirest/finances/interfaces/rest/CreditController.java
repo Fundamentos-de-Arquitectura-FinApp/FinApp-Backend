@@ -22,6 +22,7 @@ import com.example.finappapirest.finances.interfaces.rest.resources.response.cre
 import com.example.finappapirest.finances.interfaces.rest.resources.response.credit.CreditResponse;
 import com.example.finappapirest.finances.interfaces.rest.transform.CreditCommandFromResource;
 import com.example.finappapirest.finances.interfaces.rest.transform.CreditResourceFromEntity;
+import com.example.finappapirest.shared.interfaces.utils.UserUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -58,7 +59,7 @@ public class CreditController {
         return ResponseEntity.ok(creditResponse);
     }
 
-    @GetMapping("/{accountId}")
+    @GetMapping("/account/{accountId}")
     @Operation(summary = "Get credits by account", description = "Get credits for an account by account id in the system")
     public ResponseEntity<List<CreditResponse>> getCreditsByAccount(@PathVariable Long accountId) {
         GetCreditsByAccountIdQuery query = new GetCreditsByAccountIdQuery(accountId);
@@ -68,9 +69,10 @@ public class CreditController {
     }
 
 
-    @GetMapping("/{storeId}")
+    @GetMapping("/store")
     @Operation(summary = "Get credits by store", description = "Get credits for a store by store id in the system")
-    public ResponseEntity<List<CreditResponse>> getCreditsByStore(@PathVariable Long storeId) {
+    public ResponseEntity<List<CreditResponse>> getCreditsByStore() {
+        Long storeId = UserUtils.getCurrentUserId();
         GetCreditsByStoreQuery query = new GetCreditsByStoreQuery(storeId);
         List<Credit> credits = creditQueryService.handle(query);
         List<CreditResponse> creditResponses = credits.stream().map(CreditResourceFromEntity::toResource).toList();

@@ -49,8 +49,7 @@ public class ClientCommandServiceImpl implements ClientCommandService {
 
         client.setUserId(userId);
 
-        store.addClient(client);
-        storeRepository.save(store);
+        clientRepository.save(client);
 
         notificationServiceFacade.sendNotification(userId, "Bienvenido a la tienda " + store.getName());
         notificationServiceFacade.sendNotification(storeId, "Se ha registrado un nuevo cliente con nombre " + command.names());

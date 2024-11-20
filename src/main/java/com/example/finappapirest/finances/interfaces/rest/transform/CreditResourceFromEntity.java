@@ -17,6 +17,7 @@ public class CreditResourceFromEntity {
     }
     public static OnePaymentCreditResponse toResource(OnePaymentCredit onePaymentCredit) {
         OnePaymentCreditResponse response = new OnePaymentCreditResponse();
+        response.creditId = onePaymentCredit.getId();
         response.orderId = onePaymentCredit.getOrderId();
         response.initialPayment = onePaymentCredit.getInitialPayment();
         response.totalAmount = onePaymentCredit.getAmount();
@@ -29,6 +30,7 @@ public class CreditResourceFromEntity {
     }
     public static QuotaCreditResponse toResource(QuotaCredit quotaCredit) {
         QuotaCreditResponse response = new QuotaCreditResponse();
+        response.creditId = quotaCredit.getId();
         response.orderId = quotaCredit.getOrderId();
         response.initialPayment = quotaCredit.getInitialPayment();
         response.totalAmount = quotaCredit.getAmount();

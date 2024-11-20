@@ -15,6 +15,8 @@ public class OnePaymentCredit extends Credit {
 
     @Override
     public PaymentPlan createPaymentPlan() {
-        return null;
+        this.paymentPlan = new PaymentPlan();
+        paymentPlan.createQuotas(this);
+        return this.paymentPlan;
     }
 }

@@ -1,10 +1,13 @@
 package com.example.finappapirest.finances.application.internal.queryservices;
 
 import com.example.finappapirest.finances.domain.model.aggregates.Account;
+import com.example.finappapirest.finances.domain.model.aggregates.Store;
 import com.example.finappapirest.finances.domain.model.queries.account.GetAccountByIdQuery;
 import com.example.finappapirest.finances.domain.model.queries.account.GetAccountsByStoreQuery;
 import com.example.finappapirest.finances.domain.model.queries.account.GetAllAccountsQuery;
+import com.example.finappapirest.finances.domain.model.queries.store.GetStoreByUserIdQuery;
 import com.example.finappapirest.finances.domain.services.queries.AccountQueryService;
+import com.example.finappapirest.finances.domain.services.queries.StoreQueryService;
 import com.example.finappapirest.finances.infraestructure.persistence.jpa.repositories.AccountRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,7 @@ import java.util.List;
 public class AccountQueryServiceImpl implements AccountQueryService {
 
     private final AccountRepository accountRepository;
+    private final StoreQueryService storeQueryService;
 
     @Override
     public List<Account> handle(GetAllAccountsQuery query) {
@@ -29,6 +33,8 @@ public class AccountQueryServiceImpl implements AccountQueryService {
 
     @Override
     public List<Account> handle(GetAccountsByStoreQuery query) {
-        return this.accountRepository.findByStoreId(query.storeId());
+        GetStoreByUserIdQuery queryStore = new GetStoreByUserIdQuery(query.storeId());
+        Store store = this.storeQueryService.handle(queryStore);
+        return this.accountRepository.findByStoreId(store.getId());
     }
 }

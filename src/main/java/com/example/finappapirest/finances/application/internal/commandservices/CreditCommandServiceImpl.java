@@ -32,7 +32,7 @@ public class CreditCommandServiceImpl implements CreditCommandService {
         OnePaymentCredit credit = CreditFactory.create(command, orderAmount.floatValue());
 
         credit.createPaymentPlan();
-        account.addCredit(credit);
+        credit.setAccount(account);
         return creditRepository.save(credit);
     }
 
@@ -49,7 +49,7 @@ public class CreditCommandServiceImpl implements CreditCommandService {
         QuotaCredit credit = CreditFactory.create(command, orderAmount.floatValue());
 
         credit.createPaymentPlan();
-        account.addCredit(credit);
+        credit.setAccount(account);
         return creditRepository.save(credit);
     }
 

@@ -46,9 +46,9 @@ public class PaymentPlan {
         double TEP = interestRateContext.convertRate(onePaymentCredit.getCompensatoryRate(), daysOfCredit);
         GraceType graceType = GraceType.NONE;
         double openingBalance = onePaymentCredit.getAmount();
-        double quotaToPay = openingBalance * TEP;
+        double interest = openingBalance * TEP;
         float amortization = onePaymentCredit.getAmount();
-        float interest = (float) (quotaToPay - amortization);
+        float quotaToPay = (float) (interest + amortization);
         float endingBalance = 0;
         QuotaStatus status = QuotaStatus.PENDING;
         LocalDate dueDate = onePaymentCredit.getDueDate();
@@ -57,7 +57,7 @@ public class PaymentPlan {
         quota.setTEP((float) TEP);
         quota.setGraceType(graceType);
         quota.setOpeningBalance((float) openingBalance);
-        quota.setInterest(interest);
+        quota.setInterest((float)interest);
         quota.setAmortization(amortization);
         quota.setQuotaToPay((float)quotaToPay);
         quota.setEndingBalance(endingBalance);
@@ -91,7 +91,7 @@ public class PaymentPlan {
         quotaZero.setAmortization(0f);
         quotaZero.setQuotaToPay(0f);
         quotaZero.setEndingBalance(quotaCredit.getAmount());
-        quotaZero.setStatus(null);
+        quotaZero.setStatus(QuotaStatus.PENDING);
 
         quotaZero.setDueDate(quotaCredit.getDisbursementDate());
 

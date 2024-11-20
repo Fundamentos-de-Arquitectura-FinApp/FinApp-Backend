@@ -17,7 +17,7 @@ import java.time.LocalDate;
 public abstract class Credit extends AuditableModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
     protected boolean isActive = true;
@@ -36,7 +36,7 @@ public abstract class Credit extends AuditableModel {
 
     protected LocalDate disbursementDate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     protected Account account;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
