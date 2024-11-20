@@ -21,7 +21,7 @@ public class OpenapiConfiguration {
                 .info(new Info()
                         .title("Fin App API REST")
                         .description("Fin App REST API documentation.")
-                        .version("v1.0.0")
+                        .version("v2.0.0")
                         .license(new License().name("Apache 2.0").url("https://springdoc.org")));
 
         openApi
