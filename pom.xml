@@ -102,9 +102,9 @@
             <version>2.2.0</version>
         </dependency>
         <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-activemq</artifactId>
-    </dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-activemq</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.google.code.gson</groupId>
@@ -112,9 +112,6 @@
             <version>2.10.1</version> <!-- Usa la última versión disponible -->
         </dependency>
     </dependencies>
-
- x
-
     <build>
         <plugins>
             <plugin>

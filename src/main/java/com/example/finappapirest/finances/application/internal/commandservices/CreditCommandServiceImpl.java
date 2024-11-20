@@ -12,6 +12,7 @@ import com.example.finappapirest.finances.domain.model.entities.QuotaCredit;
 import com.example.finappapirest.finances.domain.services.commands.CreditCommandService;
 import com.example.finappapirest.finances.infraestructure.persistence.jpa.repositories.AccountRepository;
 import com.example.finappapirest.finances.infraestructure.persistence.jpa.repositories.CreditRepository;
+import com.example.finappapirest.notifications.interfaces.acl.NotificationServiceFacade;
 import com.example.finappapirest.orders.interfaces.acl.OrderServiceFacade;
 import com.example.finappapirest.shared.domain.model.exceptions.BadRequestException;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,8 @@ public class CreditCommandServiceImpl implements CreditCommandService {
     private final CreditRepository creditRepository;
     private final AccountRepository accountRepository;
     private final OrderServiceFacade orderServiceFacade;
+    private final NotificationServiceFacade notificationServiceFacade;
+
     @Override
     public OnePaymentCredit handle(CreateOnePaymentCreditCommand command) {
         Account account = accountRepository.findById(command.accountId()).orElseThrow(
@@ -33,7 +36,11 @@ public class CreditCommandServiceImpl implements CreditCommandService {
 
         credit.createPaymentPlan();
         credit.setAccount(account);
+
+        notificationServiceFacade.sendNotification(account.getStore().getUserId(), "New credit created for client: " + account.getClient().getNames());
+        notificationServiceFacade.sendNotification(account.getClient().getUserId(), "New credit created for you");
         return creditRepository.save(credit);
+
     }
 
     @Override
@@ -50,6 +57,9 @@ public class CreditCommandServiceImpl implements CreditCommandService {
 
         credit.createPaymentPlan();
         credit.setAccount(account);
+
+        notificationServiceFacade.sendNotification(account.getStore().getUserId(), "New credit created for client: " + account.getClient().getNames());
+        notificationServiceFacade.sendNotification(account.getClient().getUserId(), "New credit created for you");
         return creditRepository.save(credit);
     }
 
