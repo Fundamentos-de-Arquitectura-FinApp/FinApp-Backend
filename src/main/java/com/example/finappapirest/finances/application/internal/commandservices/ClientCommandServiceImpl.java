@@ -9,6 +9,7 @@ import com.example.finappapirest.finances.domain.services.commands.ClientCommand
 import com.example.finappapirest.finances.domain.services.queries.StoreQueryService;
 import com.example.finappapirest.finances.infraestructure.persistence.jpa.repositories.ClientRepository;
 import com.example.finappapirest.finances.infraestructure.persistence.jpa.repositories.StoreRepository;
+import com.example.finappapirest.notifications.interfaces.acl.NotificationServiceFacade;
 import com.example.finappapirest.security.domain.model.valueobjects.Roles;
 import com.example.finappapirest.security.interfaces.acl.UserServiceFacade;
 import com.example.finappapirest.shared.domain.model.exceptions.NotFoundException;
@@ -26,6 +27,7 @@ public class ClientCommandServiceImpl implements ClientCommandService {
     private final StoreRepository storeRepository;
     private final UserServiceFacade userServiceFacade;
     private final StoreQueryService storeQueryService;
+    private final NotificationServiceFacade notificationServiceFacade;
 
     @Override
     public Client handle(CreateClientCommand command) {
@@ -50,6 +52,8 @@ public class ClientCommandServiceImpl implements ClientCommandService {
         store.addClient(client);
         storeRepository.save(store);
 
+        notificationServiceFacade.sendNotification(userId, "Bienvenido a la tienda " + store.getName());
+        notificationServiceFacade.sendNotification(storeId, "Se ha registrado un nuevo cliente con nombre " + command.names());
         return client;
     }
 

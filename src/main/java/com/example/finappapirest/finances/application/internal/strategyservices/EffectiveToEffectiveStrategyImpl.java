@@ -14,7 +14,7 @@ public class EffectiveToEffectiveStrategyImpl implements InterestRateStrategy {
         {
             int n2 = periodInDays;
             int n1 = rate.getPeriodType().getValue();
-            return Math.pow(1 + rate.getValue(), n2/(n1*1.0)) - 1;
+            return Math.pow(1 + rate.getValue()/100, n2/(n1*1.0)) - 1;
         }
         throw new InternalServerErrorException("Invalid rate type");
     }

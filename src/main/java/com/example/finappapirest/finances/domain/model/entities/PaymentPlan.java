@@ -71,6 +71,7 @@ public class PaymentPlan {
 
 
         double TEA = interestRateContext.convertRate(quotaCredit.getCompensatoryRate(), PeriodType.ANNUALLY.getValue());
+
         System.out.println("TEA: " + TEA);
 
         double TEP = interestRateContext.convertRate(quotaCredit.getCompensatoryRate(), quotaCredit.getPaymentPeriod().getValue());

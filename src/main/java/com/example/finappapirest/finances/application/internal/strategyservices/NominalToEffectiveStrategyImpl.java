@@ -22,7 +22,7 @@ public class NominalToEffectiveStrategyImpl implements InterestRateStrategy {
             System.out.println("m: " + m);
             System.out.println("rate: " + rate.getValue());
             System.out.println("periodInDays: " + periodInDays);
-            double result = Math.pow(1 + rate.getValue() / m, n) - 1;
+            double result = Math.pow(1 + rate.getValue() / (100*m), n) - 1;
             System.out.println("result: " + result);
 
             return result;
